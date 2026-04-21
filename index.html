@@ -626,11 +626,11 @@
           <p style="font-weight:500;">В вашей ситуации выручку признавайте по мере готовности, ${reasonText}</p>
           <div style="background:#eef3ea; border-radius: 20px; padding: 1rem; margin: 1rem 0;">
             <div><strong>Степень готовности:</strong> <span style="font-size:1.8rem; font-weight:700;">${state.readinessPercent.toFixed(2)}%</span></div>
-            <div><strong>Выручка к признанию:</strong> ${state.recognizedRevenue.toLocaleString('ru-RU')} руб.</div>
-            <div><strong>Не признанная выручка:</strong> ${state.notRecognizedRevenue.toLocaleString('ru-RU')} руб.</div>
+            <div><strong>Признайте выручку:</strong> ${state.recognizedRevenue.toLocaleString('ru-RU')} руб.</div>
+            <div><strong>Выручка, которую признаете в следующих периодах:</strong> ${state.notRecognizedRevenue.toLocaleString('ru-RU')} руб.</div>
             <div><strong>Способ расчета:</strong> ${methodName}</div>
           </div>
-          <div class="info-hint" style="margin:0;">Степень готовности определена на основе ваших данных. Помните, что итоговая выручка может уточняться при изменении оценок.</div>
+          <div class="info-hint" style="margin:0;">Степень готовности определили на основе ваших данных. Помните, что итоговая выручка еще может измениться.</div>
         </div>
         <div class="nav-buttons">
           <button class="btn btn-secondary" id="resetWizardBtn">Начать заново</button>
