@@ -511,7 +511,7 @@
       if (isNaN(planned) || planned <= 0) { errorDiv.innerText = '❌ Плановые затраты должны быть больше нуля.'; return; }
       if (isNaN(actual) || actual < 0) { errorDiv.innerText = '❌ Фактические затраты не могут быть отрицательными.'; return; }
       if (actual > planned) {
-        errorDiv.innerText = '⚠️ Предупреждение: фактические затраты превышают плановые. Степень готовности может превысить 100%, проверьте данные.';
+        errorDiv.innerText = 'Предупреждение: фактические затраты превышают плановые. Степень готовности может превысить 100%, проверьте данные.';
       } else { errorDiv.innerText = ''; }
       
       let readiness = (actual / planned) * 100;
@@ -584,7 +584,7 @@
       if (isNaN(totalVol) || totalVol <= 0) { errDiv.innerText = '❌ Общий объем должен быть больше нуля.'; return; }
       if (isNaN(completedVol) || completedVol < 0) { errDiv.innerText = '❌ Выполненный объем не может быть отрицательным.'; return; }
       if (completedVol > totalVol) {
-        errDiv.innerText = '⚠️ Проверьте данные: выполненный объем не может превышать общий объем без пояснения.';
+        errDiv.innerText = 'Проверьте данные: выполненный объем не может превышать общий объем без пояснения.';
         return;
       }
       let readiness = (completedVol / totalVol) * 100;
@@ -614,7 +614,7 @@
           <p style="font-size:0.85rem;"></p>
         </div>
         <div class="nav-buttons" style="margin-top: 0.5rem;">
-          <button class="btn btn-secondary" id="resetAllBtn">🔄 Начать заново</button>
+          <button class="btn btn-secondary" id="resetAllBtn">Начать заново</button>
         </div>
       `;
     } else {
@@ -622,13 +622,13 @@
       const reasonText = 'потому что покупатель получает результат постепенно (условия 1-3 из первого шага).';
       resultHtml = `
         <div class="result-card" style="border-left: 6px solid #2b8c5e;">
-          <div class="result-badge">✅ Признание выручки: по мере готовности</div>
+          <div class="result-badge">Признание выручки: по мере готовности</div>
           <p style="font-weight:500;">В вашей ситуации выручку признавайте по мере готовности, ${reasonText}</p>
           <div style="background:#eef3ea; border-radius: 20px; padding: 1rem; margin: 1rem 0;">
-            <div>📈 <strong>Степень готовности:</strong> <span style="font-size:1.8rem; font-weight:700;">${state.readinessPercent.toFixed(2)}%</span></div>
-            <div>💰 <strong>Выручка к признанию:</strong> ${state.recognizedRevenue.toLocaleString('ru-RU')} руб.</div>
-            <div>⏳ <strong>Не признанная выручка:</strong> ${state.notRecognizedRevenue.toLocaleString('ru-RU')} руб.</div>
-            <div>📐 <strong>Способ расчета:</strong> ${methodName}</div>
+            <div><strong>Степень готовности:</strong> <span style="font-size:1.8rem; font-weight:700;">${state.readinessPercent.toFixed(2)}%</span></div>
+            <div><strong>Выручка к признанию:</strong> ${state.recognizedRevenue.toLocaleString('ru-RU')} руб.</div>
+            <div><strong>Не признанная выручка:</strong> ${state.notRecognizedRevenue.toLocaleString('ru-RU')} руб.</div>
+            <div><strong>Способ расчета:</strong> ${methodName}</div>
           </div>
           <div class="info-hint" style="margin:0;">Степень готовности определена на основе ваших данных. Помните, что итоговая выручка может уточняться при изменении оценок.</div>
         </div>
