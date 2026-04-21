@@ -113,10 +113,10 @@ function updateUI() {
 
 function renderStep1(container) {
   container.innerHTML = `
-    <div class="info-hint">Если продукцию можно выделить отдельно, сервис продолжит проверку. Если нет, договор нужно рассматривать целиком.</div>
+    <div class="info-hint">Если продукцию можно выделить отдельно, сервис продолжит проверку.</div>
     <div class="options-grid">
-      <button class="option-btn" data-val="yes">Да, можно выделить отдельную продукцию<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">То есть эту часть договора можно рассматривать отдельно.</div></button>
-      <button class="option-btn" data-val="no">Нет, договор нужно рассматривать целиком<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Если продукцию нельзя выделить отдельно, договор анализируют как единое целое.</div></button>
+      <button class="option-btn" data-val="yes">Да, можно выделить отдельную продукцию<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;"></div></button>
+      <button class="option-btn" data-val="no">Нет, договор нужно рассматривать целиком<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;"></div></button>
     </div>
     <div class="nav-buttons">
       <div></div>
@@ -147,8 +147,8 @@ function renderStep2(container) {
     <div class="info-hint">Выберите только те варианты, которые действительно соответствуют условиям вашего договора.</div>
     <div class="options-grid">
       <button class="option-btn" data-val="a">Клиент получает и использует выгоды по мере выполнения<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: покупатель получает пользу сразу по мере исполнения.</div></button>
-      <button class="option-btn" data-val="b">Создается или улучшается актив под контролем клиента<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: актив создаете для клиента и под его контролем.</div></button>
-      <button class="option-btn" data-val="c">Нет альтернативного использования + есть право на оплату<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: продукция уникальная, и вы ее делаете для конкретного покупателя; продать другому контрагенту ее нельзя.</div></button>
+      <button class="option-btn" data-val="b">Создаете или улучшаете актив под контролем клиента<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: актив создаете для покупателя под его контролем.</div></button>
+      <button class="option-btn" data-val="c">Альтернативно использовать нельзя + есть право на оплату<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: продукция уникальная, и вы ее делаете для конкретного покупателя.</div></button>
       <button class="option-btn" data-val="none">Ни одно из условий не подходит<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Тогда выручку обычно признают в момент передачи контроля.</div></button>
     </div>
     <div class="nav-buttons">
@@ -183,8 +183,8 @@ function renderStep2(container) {
 function renderStep3(container) {
   container.innerHTML = `
     <div class="options-grid">
-      <button class="option-btn" data-method="costs">📊 По затратам<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаем долю фактических затрат в общей ожидаемой себестоимости.</div></button>
-      <button class="option-btn" data-method="volume">📏 По объему выполненной продукции<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаем долю выполненного объема в общем объеме.</div></button>
+      <button class="option-btn" data-method="costs">📊 По затратам<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаете долю фактических затрат в общей ожидаемой себестоимости.</div></button>
+      <button class="option-btn" data-method="volume">📏 По объему выполненной продукции<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаете долю выполненного объема в общем объеме.</div></button>
     </div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" id="back3">← Назад</button>
@@ -292,9 +292,9 @@ function renderResult(container) {
     container.innerHTML = `
       <div class="result-card">
         <div class="result-badge blue">Момент передачи контроля</div>
-        <p>По предварительной оценке, выручку следует признавать в момент передачи контроля над продукцией.</p>
+        <p>По предварительной оценке, выручку признайте в момент передачи контроля над продукцией.</p>
         <div class="divider"></div>
-        <div class="info-hint">Степень готовности в этой ситуации рассчитывать не нужно.</div>
+        <div class="info-hint">Степень готовности не рассчитывайте.</div>
       </div>
       <div class="nav-buttons">
         <button class="btn btn-secondary" id="restart">Начать заново</button>
@@ -312,7 +312,7 @@ function renderResult(container) {
           <div class="result-item"><b>Пояснение</b>Расчет основан на данных договора и выбранном методе.</div>
         </div>
         <div class="divider"></div>
-        <div class="info-hint">Если изменятся оценки затрат или объема, расчет нужно обновить на следующую отчетную дату.</div>
+        <div class="info-hint">Если изменятся оценки затрат или объема, расчет обновите к следующей отчетной дате.</div>
       </div>
       <div class="nav-buttons">
         <button class="btn btn-secondary" id="restart">Начать заново</button>
