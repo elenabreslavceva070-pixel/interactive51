@@ -5,666 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>ФСБУ 9/2025: признание выручки и степень готовности</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#f0f4f9;font-family:'Segoe UI',Inter,system-ui,-apple-system,Roboto,sans-serif;padding:2rem 1rem;min-height:100vh;display:flex;justify-content:center;align-items:center}
+    .wizard{max-width:820px;width:100%;background:#fff;border-radius:28px;box-shadow:0 20px 35px -12px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.02);overflow:hidden}
+    .step-header{padding:1.5rem 2rem .75rem;border-bottom:1px solid #eef2f6}
+    .step-badge{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5b7c9e;background:#eef3fc;display:inline-block;padding:.25rem .75rem;border-radius:999px;margin-bottom:1rem}
+    h2{font-size:1.6rem;font-weight:650;letter-spacing:-.3px;color:#1a2c3e;line-height:1.3;margin-bottom:.5rem}
+    .sub-text{color:#5f6c7a;font-size:.95rem;line-height:1.5}
+    .step-content{padding:2rem}
+    .options-grid{display:flex;flex-direction:column;gap:1rem;margin:1.25rem 0 0}
+    .option-btn{background:#fff;border:2px solid #95CAFA;border-radius:22px;padding:1rem 1.1rem;font-size:1rem;font-weight:500;text-align:left;color:#1a2c3e;cursor:pointer;transition:.2s ease;font-family:inherit;width:100%}
+    .option-btn:hover{background:#f5faff;border-color:#6eb0e0;transform:translateY(-1px)}
+    .option-btn.selected{background:#eef6fe;border-color:#5ea8de}
+    .nav-buttons{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:1rem;flex-wrap:wrap}
+    .btn{border:none;background:#f0f2f5;padding:.85rem 1.3rem;border-radius:999px;font-weight:650;font-size:.92rem;font-family:inherit;cursor:pointer;transition:.2s;color:#2c3e4e}
+    .btn-primary{background:#1e6f3f;color:#fff}
+    .btn-primary:hover{background:#0f5a34;transform:translateY(-1px)}
+    .btn-secondary{background:#fff;border:1px solid #d0dae4}
+    .btn-secondary:hover{background:#f8fafd;border-color:#95CAFA}
+    .form-group{margin-bottom:1.2rem}
+    label{display:block;font-weight:600;margin-bottom:.5rem;color:#1f3b4c;font-size:.92rem}
+    input{width:100%;padding:.95rem 1rem;border:1.5px solid #e2e8f0;border-radius:18px;font-size:1rem;font-family:inherit;transition:.2s;background:#fff}
+    input:focus{outline:none;border-color:#95CAFA;box-shadow:0 0 0 3px rgba(149,202,250,.2)}
+    .error-message{color:#c7362b;font-size:.86rem;margin-top:.45rem;min-height:1.1em}
+    .info-hint{background:#f8fafe;border-left:4px solid #95CAFA;padding:.85rem 1rem;border-radius:14px;font-size:.9rem;color:#2c4e6e;line-height:1.5;margin:1rem 0}
+    .result-card{border-radius:24px;padding:1.4rem;margin:1rem 0;border:1px solid #e2f0e6;background:#f9fcf5}
+    .result-badge{display:inline-block;background:#e1f5e8;color:#1a6e44;border-radius:999px;padding:.35rem 1rem;font-weight:700;font-size:.82rem;margin-bottom:1rem}
+    .result-badge.blue{background:#e4f0fe;color:#1e5a8a}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:1rem}
+    .result-item{background:#fff;border:1px solid #e5edf3;border-radius:16px;padding:.85rem 1rem}
+    .result-item b{display:block;color:#1a2c3e;margin-bottom:.25rem}
+    .divider{height:1px;background:#e2edf2;margin:1rem 0}
+    .footer-note{font-size:.78rem;color:#7e8c9e;text-align:center;padding:1rem 1.5rem 1.2rem;background:#fafcfd;border-top:1px solid #eef2f8;line-height:1.45}
+    @media (max-width:560px){
+      .step-content{padding:1.4rem}
+      .step-header{padding:1.2rem 1.4rem .7rem}
+      h2{font-size:1.32rem}
+      .option-btn{padding:.9rem 1rem}
+      .btn{padding:.72rem 1.1rem}
+      .result-grid{grid-template-columns:1fr}
     }
-
-    body {
-      background: #f0f4f9;
-      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
-      padding: 2rem 1rem;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .wizard {
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-      background: white;
-      border-radius: 32px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.02);
-      overflow: hidden;
-      transition: all 0.2s ease;
-    }
-
-    .step-header {
-      padding: 1.5rem 2rem 0.5rem 2rem;
-      border-bottom: 1px solid #eef2f6;
-    }
-
-    .step-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #5b7c9e;
-      background: #eef3fc;
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      border-radius: 40px;
-      margin-bottom: 1rem;
-    }
-
-    h2 {
-      font-size: 1.7rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      color: #1a2c3e;
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-    }
-
-    .sub-text {
-      color: #5f6c7a;
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
-    }
-
-    .step-content {
-      padding: 2rem;
-    }
-
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 1.5rem 0 1rem;
-    }
-
-    .option-btn {
-      background: white;
-      border: 2px solid #95CAFA;
-      border-radius: 24px;
-      padding: 1rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 500;
-      text-align: left;
-      color: #1a2c3e;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: inherit;
-      width: 100%;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    .option-btn:hover {
-      background: #f5faff;
-      border-color: #6eb0e0;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 12px -8px rgba(0,0,0,0.1);
-    }
-
-    .option-btn:active {
-      transform: translateY(1px);
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 2rem;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      background: #f0f2f5;
-      padding: 0.8rem 1.4rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #2c3e4e;
-    }
-
-    .btn-primary {
-      background: #1e6f3f;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    .btn-primary:hover {
-      background: #0f5a34;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: white;
-      border: 1px solid #d0dae4;
-    }
-
-    .btn-secondary:hover {
-      background: #f8fafd;
-      border-color: #95CAFA;
-    }
-
-    .btn-example {
-      background: #f0f7ff;
-      border: 1px solid #95CAFA;
-      color: #2c6b9e;
-    }
-
-    .btn-example:hover {
-      background: #e5f0fe;
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    label {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #1f3b4c;
-      font-size: 0.9rem;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.9rem 1rem;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 20px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: 0.2s;
-      background: #fff;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #95CAFA;
-      box-shadow: 0 0 0 3px rgba(149, 202, 250, 0.2);
-    }
-
-    .error-message {
-      color: #c7362b;
-      font-size: 0.8rem;
-      margin-top: 0.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .info-hint {
-      background: #f8fafe;
-      border-left: 4px solid #95CAFA;
-      padding: 0.8rem 1rem;
-      border-radius: 16px;
-      font-size: 0.85rem;
-      color: #2c4e6e;
-      margin: 1rem 0;
-    }
-
-    .example-modal {
-      background: #fefce8;
-      border-left: 4px solid #f5b042;
-      padding: 1rem;
-      border-radius: 20px;
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      line-height: 1.5;
-      color: #5a4a2a;
-    }
-
-    .result-card {
-      background: #f9fcf5;
-      border-radius: 28px;
-      padding: 1.6rem;
-      margin: 1rem 0;
-      border: 1px solid #e2f0e6;
-    }
-
-    .result-badge {
-      display: inline-block;
-      background: #e1f5e8;
-      color: #1a6e44;
-      border-radius: 60px;
-      padding: 0.3rem 1rem;
-      font-weight: 600;
-      font-size: 0.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .result-badge.blue {
-      background: #e4f0fe;
-      color: #1e5a8a;
-    }
-
-    .divider {
-      height: 1px;
-      background: #e2edf2;
-      margin: 1.2rem 0;
-    }
-
-    .footer-note {
-      font-size: 0.7rem;
-      color: #7e8c9e;
-      text-align: center;
-      padding: 1.5rem 2rem 1.2rem;
-      background: #fafcfd;
-      border-top: 1px solid #eef2f8;
-    }
-
-    @media (max-width: 550px) {
-      .step-content {
-        padding: 1.5rem;
-      }
-      h2 {
-        font-size: 1.4rem;
-      }
-      .option-btn {
-        padding: 0.85rem 1.2rem;
-      }
-      .btn {
-        padding: 0.65rem 1.2rem;
-      }
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    button:disabled{opacity:.55;cursor:not-allowed}
   </style>
 </head>
 <body>
 <div class="wizard" id="app">
   <div class="step-header">
     <div class="step-badge" id="stepLabel">Шаг 1 из 4</div>
-    <h2 id="mainTitle">Признание выручки по ФСБУ 9/2025</h2>
-    <div class="sub-text" id="subDesc">Определите условия контроля и степень готовности</div>
+    <h2 id="mainTitle">Интерактивная подсказка по ФСБУ 9/2025</h2>
+    <div class="sub-text" id="subDesc">Ответьте на несколько вопросов, чтобы понять, как признавать выручку: сразу или по мере выполнения договора.</div>
   </div>
   <div class="step-content" id="stepContent"></div>
-  <div class="footer-note">
-    ⚡ Интерактивная подсказка — не юридическое заключение. Рекомендации на основе ФСБУ 9/2025.
-  </div>
+  <div class="footer-note">Сервис помогает предварительно определить способ признания выручки и рассчитать степень готовности. Окончательное решение принимает бухгалтер с учетом условий договора и профессионального суждения.</div>
 </div>
 
 <script>
-  let state = {
-    step: 1,
-    recognitionMode: null,
-    selectedConditionIndex: null,
-    calculationMethod: null,
-    contractPrice: 0,
-    plannedCosts: 0,
-    actualCosts: 0,
-    totalVolume: 0,
-    completedVolume: 0,
-    readinessPercent: 0,
-    recognizedRevenue: 0,
-    notRecognizedRevenue: 0,
-    showExampleHint: false,
-    errorMsg: ''
-  };
+const state = {
+  step: 1,
+  recognitionMode: null,
+  selectedCondition: null,
+  calculationMethod: null,
+  contractPrice: null,
+  plannedCosts: null,
+  actualCosts: null,
+  totalVolume: null,
+  completedVolume: null,
+  readinessPercent: null,
+  recognizedRevenue: null
+};
 
-  function updateUI() {
-    const stepContent = document.getElementById('stepContent');
-    const stepLabelSpan = document.getElementById('stepLabel');
-    const mainTitle = document.getElementById('mainTitle');
-    const subDesc = document.getElementById('subDesc');
+const fmt = n => Number(n).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+const money = n => `${fmt(n)} руб.`;
 
-    if (state.step === 1) {
-      stepLabelSpan.innerText = 'Шаг 1 из 4';
-      mainTitle.innerText = 'Определите, каким способом вы будете учитывать выручку';
-      subDesc.innerText = 'Выберите ситуацию, которая подходит вашему договору';
-      renderStep1(stepContent);
-    } 
-    else if (state.step === 2) {
-      stepLabelSpan.innerText = 'Шаг 2 из 4';
-      mainTitle.innerText = 'Способ определения степени готовности';
-      subDesc.innerText = 'Вы признаете выручку по мере готовности — уточните метод расчета';
-      renderStep2(stepContent);
-    }
-    else if (state.step === 3) {
-      if (state.calculationMethod === 'costs') {
-        stepLabelSpan.innerText = 'Шаг 3 из 4 · По затратам';
-        mainTitle.innerText = 'Расчет через затраты';
-        subDesc.innerText = 'Введите данные по договору';
-        renderCostsForm(stepContent);
-      } else if (state.calculationMethod === 'volume') {
-        stepLabelSpan.innerText = 'Шаг 3 из 4 · По объему';
-        mainTitle.innerText = 'Расчет по объему работ';
-        subDesc.innerText = 'Укажите плановые и фактические объемы';
-        renderVolumeForm(stepContent);
-      }
-    } 
-    else if (state.step === 4) {
-      stepLabelSpan.innerText = 'Результат';
-      mainTitle.innerText = 'Итоговая рекомендация';
-      subDesc.innerText = '';
-      renderResult(stepContent);
-    }
+function updateUI() {
+  const c = document.getElementById('stepContent');
+  const l = document.getElementById('stepLabel');
+  const t = document.getElementById('mainTitle');
+  const s = document.getElementById('subDesc');
+
+  if (state.step === 1) {
+    l.innerText = 'Шаг 1 из 4';
+    t.innerText = 'Можно ли выделить в договоре отдельную продукцию?';
+    s.innerText = 'Сначала проверьте, можно ли рассматривать эту продукцию отдельно от остальных частей договора.';
+    renderStep1(c);
+  } else if (state.step === 2) {
+    l.innerText = 'Шаг 2 из 4';
+    t.innerText = 'Соответствует ли договор признакам признания выручки по мере передачи контроля?';
+    s.innerText = 'Проверьте, подходит ли ваш договор хотя бы под одно из трех условий.';
+    renderStep2(c);
+  } else if (state.step === 3) {
+    l.innerText = 'Шаг 3 из 4';
+    t.innerText = 'Выберите способ определения степени готовности';
+    s.innerText = 'Сначала выберите, как считать готовность: по затратам или по объему.';
+    renderStep3(c);
+  } else if (state.step === 4) {
+    l.innerText = 'Шаг 4 из 4';
+    t.innerText = 'Введите данные по договору';
+    s.innerText = 'Заполните поля и получите расчет степени готовности и выручки.';
+    renderStep4(c);
+  } else if (state.step === 5) {
+    l.innerText = 'Результат';
+    t.innerText = 'Итоговая рекомендация';
+    s.innerText = '';
+    renderResult(c);
   }
+}
 
-  function renderStep1(container) {
-    const options = [
-      { text: "Покупатель пользуется продукцией здесь и сейчас", hint: "Пример: уборка офиса, абонентское обслуживание, услуги связи" },
-      { text: "Делаете что-то на территории покупателя — он видит процесс и может использовать части.", hint: "Пример: строительство, монтаж, поэтапная разработка ПО под контролем заказчика" },
-      { text: "Продукция уникальна для этого покупателя, ее нельзя продать другому контрагенту.", hint: "Пример: Логотип или сайт компании" },
-      { text: "Ни одно из условий не подходит", hint: "Выручку признайте в момент передачи контроля" }
-    ];
-
-    let html = `<div class="options-grid">`;
-    options.forEach((opt, idx) => {
-      html += `
-        <button class="option-btn" data-opt-index="${idx}">
-          ${opt.text}
-          <div style="font-size:0.75rem; color:#6b7f8f; margin-top:6px;">${opt.hint}</div>
-        </button>
-      `;
-    });
-    html += `</div><div class="nav-buttons"><div></div><button class="btn btn-primary" id="nextStepBtn" disabled style="opacity:0.5;">Далее →</button></div>`;
-    container.innerHTML = html;
-
-    const btns = document.querySelectorAll('.option-btn');
-    let selectedIdx = null;
-    btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.dataset.optIndex);
-        selectedIdx = idx;
-        btns.forEach(b => b.style.background = 'white');
-        btn.style.background = '#eef6fe';
-        const nextBtn = document.getElementById('nextStepBtn');
-        if (nextBtn) {
-          nextBtn.disabled = false;
-          nextBtn.style.opacity = '1';
-        }
-        state.selectedConditionIndex = idx;
-      });
-    });
-
-    const nextBtn = document.getElementById('nextStepBtn');
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        if (selectedIdx === null) return;
-        if (selectedIdx === 3) {
-          state.recognitionMode = 'moment';
-          state.step = 4;
-          updateUI();
-        } else {
-          state.recognitionMode = 'readiness';
-          state.step = 2;
-          state.calculationMethod = null;
-          updateUI();
-        }
-      });
-    }
-  }
-
-  function renderStep2(container) {
-    let html = `
-      <div class="options-grid">
-        <button class="option-btn" data-method="costs">📊 По затратам (факт/план)</button>
-        <button class="option-btn" data-method="volume">📏 По объему выполненных работ или продукции</button>
-      </div>
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" id="backStep2">← Назад</button>
-        <button class="btn btn-primary" id="confirmMethodBtn" disabled style="opacity:0.5;">Далее →</button>
-      </div>
-    `;
-    container.innerHTML = html;
-
-    let selectedMethod = null;
-    const costBtn = document.querySelector('[data-method="costs"]');
-    const volumeBtn = document.querySelector('[data-method="volume"]');
-    const confirmBtn = document.getElementById('confirmMethodBtn');
-
-    function highlightMethod(method) {
-      if (costBtn) costBtn.style.background = 'white';
-      if (volumeBtn) volumeBtn.style.background = 'white';
-      if (method === 'costs' && costBtn) costBtn.style.background = '#eef6fe';
-      if (method === 'volume' && volumeBtn) volumeBtn.style.background = '#eef6fe';
-      selectedMethod = method;
-      if (confirmBtn) {
-        confirmBtn.disabled = false;
-        confirmBtn.style.opacity = '1';
-      }
-    }
-
-    if (costBtn) costBtn.addEventListener('click', () => highlightMethod('costs'));
-    if (volumeBtn) volumeBtn.addEventListener('click', () => highlightMethod('volume'));
-
-    if (confirmBtn) {
-      confirmBtn.addEventListener('click', () => {
-        if (selectedMethod === 'costs') {
-          state.calculationMethod = 'costs';
-          state.step = 3;
-          updateUI();
-        } else if (selectedMethod === 'volume') {
-          state.calculationMethod = 'volume';
-          state.step = 3;
-          updateUI();
-        }
-      });
-    }
-    document.getElementById('backStep2')?.addEventListener('click', () => {
-      state.step = 1;
-      updateUI();
-    });
-  }
-
-  function renderCostsForm(container) {
-    let html = `
-      <div class="form-group">
-        <label>Цена договора (руб.)</label>
-        <input type="number" id="contractPrice" placeholder="Например, 100 000 000" step="any" value="${state.contractPrice || ''}">
-      </div>
-      <div class="form-group">
-        <label>Плановые общие затраты (руб.)</label>
-        <input type="number" id="plannedCosts" placeholder="Например, 80 000 000" step="any" value="${state.plannedCosts || ''}">
-      </div>
-      <div class="form-group">
-        <label>Фактические затраты на дату (руб.)</label>
-        <input type="number" id="actualCosts" placeholder="Например, 20 000 000" step="any" value="${state.actualCosts || ''}">
-      </div>
-      <div class="form-group">
-        <label>Дата расчета (необязательно)</label>
-        <input type="text" id="calcDate" placeholder="например, 31.03.2026">
-      </div>
-      <div id="costsError" class="error-message" style="margin-bottom:1rem;"></div>
-      <div id="costsExampleBlock" style="margin-bottom:1rem;"></div>
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" id="backToMethod">← Назад</button>
-        <button class="btn btn-example" id="showCostsExampleBtn">Пример расчета по затратам</button>
-        <button class="btn btn-primary" id="calculateCostsBtn">Рассчитать →</button>
-      </div>
-    `;
-    container.innerHTML = html;
-
-    document.getElementById('backToMethod')?.addEventListener('click', () => {
-      state.step = 2;
-      updateUI();
-    });
-
-    document.getElementById('showCostsExampleBtn')?.addEventListener('click', () => {
-      const exampleDiv = document.getElementById('costsExampleBlock');
-      exampleDiv.innerHTML = `
-        <div class="example-modal">
-          <strong>Пример расчета степени готовности по затратам:</strong><br><br>
-          Компания выполняет строительно-монтажные работы в течение периода, который превышает 12 месяцев. Сумма контракта — 100 000 000 руб. Компания определяет степень готовности работ по доле расходов, которые произвела на отчетную дату.<br><br>
-          На 30 июня компания произвела расходы на сумму 20 000 000 руб. Согласно смете общая величина расходов, которые предстоит понести для завершения работ, — 80 000 000 руб.<br><br>
-          Бухгалтер рассчитала:<br>
-          • долю расходов, которые уже понесла компания: (20 000 000 руб. / 80 000 000 руб.) × 100 = 25%.<br>
-          • выручку, которую признает в учете в текущем периоде: 100 000 000 руб. × 0,25 = 25 000 000 руб.<br><br>
-          На 30 сентября компания произвела расходы в сумме 50 000 000 руб.<br>
-          • доля расходов: (50 000 000 руб. / 80 000 000 руб.) × 100 = 62,5%.<br>
-          • выручка к признанию: 100 000 000 руб. × 0,625 – 25 000 000 = 37 500 000 руб.<br><br>
-          В следующем периоде работы завершены. После их завершения и передачи результата заказчику, бухгалтер признала выручку: 100 000 000 – 25 000 000 – 37 500 000 = 37 500 000 руб.
-        </div>
-      `;
-    });
-
-    document.getElementById('calculateCostsBtn')?.addEventListener('click', () => {
-      const price = parseFloat(document.getElementById('contractPrice').value);
-      const planned = parseFloat(document.getElementById('plannedCosts').value);
-      const actual = parseFloat(document.getElementById('actualCosts').value);
-      const errorDiv = document.getElementById('costsError');
-      if (isNaN(price) || price <= 0) { errorDiv.innerText = '❌ Введите цену договора больше нуля.'; return; }
-      if (isNaN(planned) || planned <= 0) { errorDiv.innerText = '❌ Плановые затраты должны быть больше нуля.'; return; }
-      if (isNaN(actual) || actual < 0) { errorDiv.innerText = '❌ Фактические затраты не могут быть отрицательными.'; return; }
-      if (actual > planned) {
-        errorDiv.innerText = 'Предупреждение: фактические затраты превышают плановые. Степень готовности может превысить 100%, проверьте данные.';
-      } else { errorDiv.innerText = ''; }
-      
-      let readiness = (actual / planned) * 100;
-      readiness = Math.min(readiness, 100);
-      const recognized = price * (readiness / 100);
-      const notRecognized = price - recognized;
-      state.contractPrice = price;
-      state.plannedCosts = planned;
-      state.actualCosts = actual;
-      state.readinessPercent = readiness;
-      state.recognizedRevenue = recognized;
-      state.notRecognizedRevenue = notRecognized;
-      state.step = 4;
-      updateUI();
-    });
-  }
-
-  function renderVolumeForm(container) {
-    let html = `
-      <div class="form-group">
-        <label>Цена договора (руб.)</label>
-        <input type="number" id="contractPriceVol" placeholder="Сумма договора" step="any" value="${state.contractPrice || ''}">
-      </div>
-      <div class="form-group">
-        <label>Общий объем работ / продукции</label>
-        <input type="number" id="totalVolume" placeholder="Например, 24 месяца, 1000 шт." step="any" value="${state.totalVolume || ''}">
-      </div>
-      <div class="form-group">
-        <label>Выполненный объем на дату</label>
-        <input type="number" id="completedVolume" placeholder="Выполнено" step="any" value="${state.completedVolume || ''}">
-      </div>
-      <div class="form-group">
-        <label>Дата расчета</label>
-        <input type="text" id="dateVol" placeholder="необязательно">
-      </div>
-      <div id="volumeError" class="error-message"></div>
-      <div id="volumeExampleBlock" style="margin-bottom:1rem;"></div>
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" id="backVol">← Назад</button>
-        <button class="btn btn-example" id="showVolumeExampleBtn">Пример расчета по объему</button>
-        <button class="btn btn-primary" id="calcVolumeBtn">Рассчитать →</button>
-      </div>
-    `;
-    container.innerHTML = html;
-
-    document.getElementById('backVol')?.addEventListener('click', () => {
-      state.step = 2;
-      updateUI();
-    });
-
-    document.getElementById('showVolumeExampleBtn')?.addEventListener('click', () => {
-      const exampleDiv = document.getElementById('volumeExampleBlock');
-      exampleDiv.innerHTML = `
-        <div class="example-modal">
-          <strong>Пример расчета степени готовности по объему:</strong><br><br>
-          Компания оказывает на основании договора абонентского обслуживания услуги технической проверки сервисного оборудования два раза в месяц. Срок оказания услуг 24 месяца с июля текущего года. Стоимость услуг 4 000 000 руб.<br>
-          Оказание услуг носит равномерный характер. Компания определяет степень готовности по доле продукции, которую передала.<br><br>
-          Бухгалтер рассчитала, что на конец текущего года оказали 25 процентов общего объема услуг (6 мес. / 24 мес. × 100).<br>
-          Бухгалтер признала выручку в учете в сумме 1 000 000 руб. (4 000 000 руб. × 0,25).
-        </div>
-      `;
-    });
-
-    document.getElementById('calcVolumeBtn')?.addEventListener('click', () => {
-      const price = parseFloat(document.getElementById('contractPriceVol').value);
-      const totalVol = parseFloat(document.getElementById('totalVolume').value);
-      const completedVol = parseFloat(document.getElementById('completedVolume').value);
-      const errDiv = document.getElementById('volumeError');
-      if (isNaN(price) || price <= 0) { errDiv.innerText = '❌ Введите цену договора больше нуля.'; return; }
-      if (isNaN(totalVol) || totalVol <= 0) { errDiv.innerText = '❌ Общий объем должен быть больше нуля.'; return; }
-      if (isNaN(completedVol) || completedVol < 0) { errDiv.innerText = '❌ Выполненный объем не может быть отрицательным.'; return; }
-      if (completedVol > totalVol) {
-        errDiv.innerText = 'Проверьте данные: выполненный объем не может превышать общий объем без пояснения.';
-        return;
-      }
-      let readiness = (completedVol / totalVol) * 100;
-      readiness = Math.min(readiness, 100);
-      const recognized = price * (readiness / 100);
-      const notRecognized = price - recognized;
-      state.contractPrice = price;
-      state.totalVolume = totalVol;
-      state.completedVolume = completedVol;
-      state.readinessPercent = readiness;
-      state.recognizedRevenue = recognized;
-      state.notRecognizedRevenue = notRecognized;
-      state.step = 4;
-      updateUI();
-    });
-  }
-
-  function renderResult(container) {
-    let resultHtml = '';
-    if (state.recognitionMode === 'moment') {
-      resultHtml = `
-        <div class="result-card" style="border-left: 6px solid #2c7ab1;">
-          <div class="result-badge blue">🔹 Способ признания: момент передачи контроля</div>
-          <p style="font-size:1rem; margin: 0.5rem 0;"><strong></strong></p>
-          <p>📌Выручку признавайте в момент передачи контроля над продукцией контрагенту, если хотя бы одно из условий для учета выручки «по мере готовности» не выполняется.</p>
-          <div class="divider"></div>
-          <p style="font-size:0.85rem;"></p>
-        </div>
-        <div class="nav-buttons" style="margin-top: 0.5rem;">
-          <button class="btn btn-secondary" id="resetAllBtn">Начать заново</button>
-        </div>
-      `;
+function renderStep1(container) {
+  container.innerHTML = `
+    <div class="info-hint">Если продукцию можно выделить отдельно, сервис продолжит проверку. Если нет, договор нужно рассматривать целиком.</div>
+    <div class="options-grid">
+      <button class="option-btn" data-val="yes">Да, можно выделить отдельную продукцию<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">То есть эту часть договора можно рассматривать отдельно.</div></button>
+      <button class="option-btn" data-val="no">Нет, договор нужно рассматривать целиком<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Если продукцию нельзя выделить отдельно, договор анализируют как единое целое.</div></button>
+    </div>
+    <div class="nav-buttons">
+      <div></div>
+      <button class="btn btn-primary" id="step1Next" disabled>Далее →</button>
+    </div>`;
+  let sel = null;
+  const btns = [...container.querySelectorAll('.option-btn')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('selected'));
+    b.classList.add('selected');
+    sel = b.dataset.val;
+    document.getElementById('step1Next').disabled = false;
+    state.selectedCondition = sel;
+  }));
+  document.getElementById('step1Next').onclick = () => {
+    if (sel === 'no') {
+      state.recognitionMode = 'moment';
+      state.step = 5;
     } else {
-      const methodName = state.calculationMethod === 'costs' ? 'по затратам' : 'по объему выполненных работ';
-      const reasonText = 'потому что покупатель получает результат постепенно (условия 1-3 из первого шага).';
-      resultHtml = `
-        <div class="result-card" style="border-left: 6px solid #2b8c5e;">
-          <div class="result-badge">Признание выручки: по мере готовности</div>
-          <p style="font-weight:500;">В вашей ситуации выручку признавайте по мере готовности, ${reasonText}</p>
-          <div style="background:#eef3ea; border-radius: 20px; padding: 1rem; margin: 1rem 0;">
-            <div><strong>Степень готовности:</strong> <span style="font-size:1.8rem; font-weight:700;">${state.readinessPercent.toFixed(2)}%</span></div>
-            <div><strong>Признайте выручку:</strong> ${state.recognizedRevenue.toLocaleString('ru-RU')} руб.</div>
-            <div><strong>Выручка, которую признаете в следующих периодах:</strong> ${state.notRecognizedRevenue.toLocaleString('ru-RU')} руб.</div>
-            <div><strong>Способ расчета:</strong> ${methodName}</div>
-          </div>
-          <div class="info-hint" style="margin:0;">Степень готовности определили на основе ваших данных. Помните, что итоговая выручка еще может измениться.</div>
-        </div>
-        <div class="nav-buttons">
-          <button class="btn btn-secondary" id="resetWizardBtn">Начать заново</button>
-        </div>
-      `;
+      state.step = 2;
     }
-    container.innerHTML = resultHtml;
-    const resetBtn = document.getElementById('resetAllBtn') || document.getElementById('resetWizardBtn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => resetWizard());
-    }
-  }
-
-  function resetWizard() {
-    state = {
-      step: 1,
-      recognitionMode: null,
-      selectedConditionIndex: null,
-      calculationMethod: null,
-      contractPrice: 0,
-      plannedCosts: 0,
-      actualCosts: 0,
-      totalVolume: 0,
-      completedVolume: 0,
-      readinessPercent: 0,
-      recognizedRevenue: 0,
-      notRecognizedRevenue: 0,
-      showExampleHint: false,
-      errorMsg: ''
-    };
     updateUI();
+  };
+}
+
+function renderStep2(container) {
+  container.innerHTML = `
+    <div class="info-hint">Выберите только те варианты, которые действительно соответствуют условиям вашего договора.</div>
+    <div class="options-grid">
+      <button class="option-btn" data-val="a">Клиент получает и использует выгоды по мере выполнения<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: покупатель получает пользу сразу по мере исполнения.</div></button>
+      <button class="option-btn" data-val="b">Создается или улучшается актив под контролем клиента<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: актив создаете для клиента и под его контролем.</div></button>
+      <button class="option-btn" data-val="c">Нет альтернативного использования + есть право на оплату<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: продукция уникальная, и вы ее делаете для конкретного покупателя; продать другому контрагенту ее нельзя.</div></button>
+      <button class="option-btn" data-val="none">Ни одно из условий не подходит<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Тогда выручку обычно признают в момент передачи контроля.</div></button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="back2">← Назад</button>
+      <button class="btn btn-primary" id="step2Next" disabled>Далее →</button>
+    </div>`;
+  let sel = null;
+  const btns = [...container.querySelectorAll('.option-btn')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('selected'));
+    b.classList.add('selected');
+    sel = b.dataset.val;
+    document.getElementById('step2Next').disabled = false;
+    state.selectedCondition = sel;
+  }));
+  document.getElementById('back2').onclick = () => {
+    state.step = 1;
+    updateUI();
+  };
+  document.getElementById('step2Next').onclick = () => {
+    if (sel === 'none') {
+      state.recognitionMode = 'moment';
+      state.step = 5;
+    } else {
+      state.recognitionMode = 'readiness';
+      state.step = 3;
+    }
+    updateUI();
+  };
+}
+
+function renderStep3(container) {
+  container.innerHTML = `
+    <div class="options-grid">
+      <button class="option-btn" data-method="costs">📊 По затратам<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаем долю фактических затрат в общей ожидаемой себестоимости.</div></button>
+      <button class="option-btn" data-method="volume">📏 По объему выполненной продукции<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Считаем долю выполненного объема в общем объеме.</div></button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="back3">← Назад</button>
+      <button class="btn btn-primary" id="step3Next" disabled>Далее →</button>
+    </div>`;
+  let sel = null;
+  const btns = [...container.querySelectorAll('.option-btn')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('selected'));
+    b.classList.add('selected');
+    sel = b.dataset.method;
+    document.getElementById('step3Next').disabled = false;
+    state.calculationMethod = sel;
+  }));
+  document.getElementById('back3').onclick = () => {
+    state.step = 2;
+    updateUI();
+  };
+  document.getElementById('step3Next').onclick = () => {
+    state.step = 4;
+    updateUI();
+  };
+}
+
+function renderStep4(container) {
+  const isCosts = state.calculationMethod === 'costs';
+  container.innerHTML = isCosts ? `
+    <div class="form-group"><label>Цена договора (руб.)</label><input type="number" id="contractPrice" placeholder="Например, 100000000" step="any"></div>
+    <div class="form-group"><label>Плановые общие затраты (руб.)</label><input type="number" id="plannedCosts" placeholder="Например, 80000000" step="any"></div>
+    <div class="form-group"><label>Фактические затраты на дату (руб.)</label><input type="number" id="actualCosts" placeholder="Например, 20000000" step="any"></div>
+    <div class="error-message" id="methodError"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="backMethod">← Назад</button>
+      <button class="btn btn-primary" id="calcBtn">Рассчитать →</button>
+    </div>
+  ` : `
+    <div class="form-group"><label>Цена договора (руб.)</label><input type="number" id="contractPrice" placeholder="Например, 4000000" step="any"></div>
+    <div class="form-group"><label>Общий объем выполненной продукции</label><input type="number" id="totalVolume" placeholder="Например, 1000" step="any"></div>
+    <div class="form-group"><label>Выполненный объем на дату</label><input type="number" id="completedVolume" placeholder="Например, 250" step="any"></div>
+    <div class="error-message" id="methodError"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="backMethod">← Назад</button>
+      <button class="btn btn-primary" id="calcBtn">Рассчитать →</button>
+    </div>
+  `;
+  document.getElementById('backMethod').onclick = () => {
+    state.step = 3;
+    updateUI();
+  };
+  document.getElementById('calcBtn').onclick = () => calculate();
+}
+
+function calculate() {
+  const err = document.getElementById('methodError');
+  err.innerText = '';
+  const price = parseFloat(document.getElementById('contractPrice').value);
+  if (!(price > 0)) {
+    err.innerText = 'Введите цену договора больше нуля.';
+    return;
+  }
+  state.contractPrice = price;
+
+  if (state.calculationMethod === 'costs') {
+    const planned = parseFloat(document.getElementById('plannedCosts').value);
+    const actual = parseFloat(document.getElementById('actualCosts').value);
+    if (!(planned > 0)) {
+      err.innerText = 'Плановые затраты должны быть больше нуля.';
+      return;
+    }
+    if (!(actual >= 0)) {
+      err.innerText = 'Фактические затраты не могут быть отрицательными.';
+      return;
+    }
+    state.plannedCosts = planned;
+    state.actualCosts = actual;
+    state.readinessPercent = Math.min((actual / planned) * 100, 100);
+    state.recognizedRevenue = price * (state.readinessPercent / 100);
+  } else {
+    const total = parseFloat(document.getElementById('totalVolume').value);
+    const completed = parseFloat(document.getElementById('completedVolume').value);
+    if (!(total > 0)) {
+      err.innerText = 'Общий объем должен быть больше нуля.';
+      return;
+    }
+    if (!(completed >= 0)) {
+      err.innerText = 'Выполненный объем не может быть отрицательным.';
+      return;
+    }
+    if (completed > total) {
+      err.innerText = 'Выполненный объем не может превышать общий объем.';
+      return;
+    }
+    state.totalVolume = total;
+    state.completedVolume = completed;
+    state.readinessPercent = Math.min((completed / total) * 100, 100);
+    state.recognizedRevenue = price * (state.readinessPercent / 100);
   }
 
+  state.step = 5;
   updateUI();
+}
+
+function renderResult(container) {
+  if (state.recognitionMode === 'moment') {
+    container.innerHTML = `
+      <div class="result-card">
+        <div class="result-badge blue">Момент передачи контроля</div>
+        <p>По предварительной оценке, выручку следует признавать в момент передачи контроля над продукцией.</p>
+        <div class="divider"></div>
+        <div class="info-hint">Степень готовности в этой ситуации рассчитывать не нужно.</div>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" id="restart">Начать заново</button>
+      </div>`;
+  } else {
+    const methodTitle = state.calculationMethod === 'costs' ? 'по затратам' : 'по объему';
+    container.innerHTML = `
+      <div class="result-card">
+        <div class="result-badge">По мере готовности</div>
+        <p>По предварительной оценке, в вашей ситуации выручку следует признавать по мере готовности.</p>
+        <div class="result-grid">
+          <div class="result-item"><b>Степень готовности</b>${state.readinessPercent.toFixed(2)}%</div>
+          <div class="result-item"><b>Выручка к признанию</b>${money(state.recognizedRevenue)}</div>
+          <div class="result-item"><b>Способ расчета</b>${methodTitle}</div>
+          <div class="result-item"><b>Пояснение</b>Расчет основан на данных договора и выбранном методе.</div>
+        </div>
+        <div class="divider"></div>
+        <div class="info-hint">Если изменятся оценки затрат или объема, расчет нужно обновить на следующую отчетную дату.</div>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" id="restart">Начать заново</button>
+      </div>`;
+  }
+
+  document.getElementById('restart').onclick = () => {
+    state.step = 1;
+    state.recognitionMode = null;
+    state.selectedCondition = null;
+    state.calculationMethod = null;
+    state.contractPrice = null;
+    state.plannedCosts = null;
+    state.actualCosts = null;
+    state.totalVolume = null;
+    state.completedVolume = null;
+    state.readinessPercent = null;
+    state.recognizedRevenue = null;
+    updateUI();
+  };
+}
+
+updateUI();
 </script>
 </body>
 </html>
