@@ -113,8 +113,7 @@ function updateUI() {
 
 function renderStep1(container) {
   container.innerHTML = `
-    <div class="info-hint">Если продукцию можно выделить отдельно, сервис продолжит проверку.</div>
-    <div class="options-grid">
+        <div class="options-grid">
       <button class="option-btn" data-val="yes">Да, можно выделить отдельную продукцию<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;"></div></button>
       <button class="option-btn" data-val="no">Нет, договор нужно рассматривать целиком<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;"></div></button>
     </div>
@@ -152,8 +151,7 @@ function renderStep1(container) {
 
 function renderStep2(container) {
   container.innerHTML = `
-    <div class="info-hint">Выберите только те варианты, которые действительно соответствуют условиям вашего договора.</div>
-    <div class="options-grid">
+        <div class="options-grid">
       <button class="option-btn" data-val="a">Клиент получает и использует выгоды по мере выполнения<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: покупатель получает пользу сразу по мере исполнения.</div></button>
       <button class="option-btn" data-val="b">Создаете или улучшаете актив под контролем клиента<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: актив создаете для покупателя под его контролем.</div></button>
       <button class="option-btn" data-val="c">Альтернативно использовать нельзя + есть право на оплату<div style="font-size:0.78rem;color:#6b7f8f;margin-top:6px;">Пример: продукция уникальная, и вы ее делаете для конкретного покупателя.</div></button>
